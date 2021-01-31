@@ -1,9 +1,11 @@
 {% extends "tasks/base.html" %}
 {% block content %}
     <h2>To Do!</h2>
-    <p>activity 1</p>
-    <p>activity 2</p>
-    <p>activity 3</p>
+    {% for task in tasks %}
+        <div>
+            <p> {{task}}</p>
+        </div>
+    {% endfor %}
 
 {% endblock content %}
 
