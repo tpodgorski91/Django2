@@ -17,6 +17,13 @@ def task(request):
             form.save()
         return redirect('/tasks/')
 
-    context = {'tasks': tasks,
-               'form': form}
+    context = {'tasks': tasks, 'form': form}
     return render(request, 'tasks/activity.html', context)
+
+
+def edit(request):
+    return render(request, 'tasks/edit.html')
+
+
+def task_delete(request):
+    return render(request, 'tasks/task_delete.html')
