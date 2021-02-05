@@ -21,7 +21,8 @@ def task(request):
     return render(request, 'tasks/activity.html', context)
 
 
-def edit(request):
+def edit(request, pk):
+    goal = Task.objects.get(id=pk)
     return render(request, 'tasks/edit.html')
 
 
