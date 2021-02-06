@@ -23,7 +23,16 @@ def task(request):
 
 def edit(request, pk):
     goal = Task.objects.get(id=pk)
-    return render(request, 'tasks/edit.html')
+    form = TaskForm(instance=goal)
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=goal)
+        if form.is_valid():
+            form.save()
+        return redirect('/tasks/')
+
+    context ={'form': form}
+
+    return render(request, 'tasks/edit.html', context)
 
 
 def task_delete(request):
