@@ -30,10 +30,14 @@ def edit(request, pk):
             form.save()
         return redirect('/tasks/')
 
-    context ={'form': form}
+    context = {'form': form}
 
     return render(request, 'tasks/edit.html', context)
 
 
-def task_delete(request):
-    return render(request, 'tasks/task_delete.html')
+def task_delete(request, pk):
+    item = Task.objects.get(id=pk)
+
+    context = {'item': item}
+
+    return render(request, 'tasks/task_delete.html', context)
