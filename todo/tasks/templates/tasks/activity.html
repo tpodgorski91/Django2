@@ -11,9 +11,13 @@
                     <th>Update Task</th>
                     <th>Delete Task</th>
                 </tr>
-            {% for task in index %}
+            {% for task in tasks %}
                 <tr>
-                    <td>{{task.title}}</td>
+                    {% if task.complete == True %}
+                        <td><strike>{{task.title}}</strike></td>
+                    {% else %}
+                        <td>{{task.title}}</td>
+                    {% endif %}
                     <td><a href="{% url 'tasks-edit' task.id %}">Update Task</a></td>
                     <td><a href="{% url 'tasks-task-delete' task.id %}">Delete Task</a></td>
                 </tr>

@@ -9,32 +9,32 @@ def home(request):
 
 
 def tasks_list(request):
-    index = Task.objects.all()
-    context = {'index': index}
+    tasks = Task.objects.all()
+    context = {'tasks': tasks}
     return render(request, 'tasks/activity.html', context)
 
 
 def task_create(request):
-    tasks = Task.objects.all()
-    form = TaskForm()
+    new = Task.objects.all()
+    new_form = TaskForm()
     if request.method == 'POST':
-        form = TaskForm(request.POST)
-        if form.is_valid():
-            form.save()
+        new_form = TaskForm(request.POST)
+        if new_form.is_valid():
+            new_form.save()
         return redirect('/tasks/')
-    context = {'tasks': tasks, 'form': form}
+    context = {'form': new_form}
     return render(request, 'tasks/task_create.html', context)
 
 
 def edit(request, pk):
     goal = Task.objects.get(id=pk)
-    form = TaskForm(instance=goal)
+    update_form = TaskForm(instance=goal)
     if request.method == 'POST':
-        form = TaskForm(request.POST, instance=goal)
-        if form.is_valid():
-            form.save()
+        update_form = TaskForm(request.POST, instance=goal)
+        if update_form.is_valid():
+            update_form.save()
         return redirect('/tasks/')
-    context = {'form': form}
+    context = {'form': update_form}
     return render(request, 'tasks/edit.html', context)
 
 
