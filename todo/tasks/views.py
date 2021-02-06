@@ -8,7 +8,13 @@ def home(request):
     return render(request, 'tasks/home.html')
 
 
-def task(request):
+def tasks_list(request):
+    index = Task.objects.all()
+    context = {'index': index}
+    return render(request, 'tasks/activity.html', context)
+
+
+def task_create(request):
     tasks = Task.objects.all()
     form = TaskForm()
     if request.method == 'POST':
@@ -16,9 +22,8 @@ def task(request):
         if form.is_valid():
             form.save()
         return redirect('/tasks/')
-
     context = {'tasks': tasks, 'form': form}
-    return render(request, 'tasks/activity.html', context)
+    return render(request, 'tasks/task_create.html', context)
 
 
 def edit(request, pk):
@@ -29,15 +34,14 @@ def edit(request, pk):
         if form.is_valid():
             form.save()
         return redirect('/tasks/')
-
     context = {'form': form}
-
     return render(request, 'tasks/edit.html', context)
 
 
 def task_delete(request, pk):
     item = Task.objects.get(id=pk)
-
+    if request.method == 'POST':
+        item.delete()
+        return redirect('/tasks/')
     context = {'item': item}
-
     return render(request, 'tasks/task_delete.html', context)
